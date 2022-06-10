@@ -1,6 +1,7 @@
 package main.java.br.com.letscode.model;
 
 public class PessoaFisica extends Cliente{
+
     private String cpf;
 
     public PessoaFisica(String nome, String cpf) {

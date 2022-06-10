@@ -1,6 +1,7 @@
 package main.java.br.com.letscode.model;
 
 public class PessoaJuridica extends Cliente {
+
     private String cnpj;
 
     public PessoaJuridica(String nome, String cnpj) {
