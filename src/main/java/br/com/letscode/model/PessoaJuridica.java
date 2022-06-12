@@ -1,12 +1,30 @@
 package main.java.br.com.letscode.model;
 
+import java.util.ArrayList;
+
 public class PessoaJuridica extends Cliente {
+
+    public static ArrayList<PessoaJuridica> clientesPj = new ArrayList<>();
 
     private String cnpj;
 
     public PessoaJuridica(String nome, String cnpj) {
         super(nome);
         this.cnpj = cnpj;
+    }
+
+    public void abrirConta(TipoConta tipo, int numero, int agencia){
+
+        PessoaJuridica titular = new PessoaJuridica(nome, cnpj);
+
+        switch (tipo){
+            case CONTA_CORRENTE:
+                ContaCorrente.contas.add(new ContaCorrente(numero, agencia, titular));
+            case CONTA_INVESTIMENTO:
+                ContaPoupanca.contas.add(new ContaPoupanca(numero, agencia, titular));
+            default:
+                System.out.println(OPCAO_INVALIDA);
+        }
     }
 
     public String getCnpj() {

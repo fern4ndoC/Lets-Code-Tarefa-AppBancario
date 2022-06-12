@@ -1,6 +1,9 @@
 package main.java.br.com.letscode.model;
 
 abstract public class Cliente {
+
+    protected static final String OPCAO_INVALIDA = "A opção selecionada é inválida.";
+
     protected String nome;
 
     public Cliente(String nome) {

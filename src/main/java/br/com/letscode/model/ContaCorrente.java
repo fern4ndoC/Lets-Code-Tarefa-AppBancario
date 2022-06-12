@@ -1,6 +1,10 @@
 package main.java.br.com.letscode.model;
 
+import java.util.ArrayList;
+
 public class ContaCorrente extends Conta{
+
+    public static ArrayList<ContaCorrente> contas = new ArrayList<>();
 
     public ContaCorrente(){
         super();
