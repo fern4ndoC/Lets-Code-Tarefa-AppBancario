@@ -20,10 +20,13 @@ public class PessoaJuridica extends Cliente {
         switch (tipo){
             case CONTA_CORRENTE:
                 ContaCorrente.contas.add(new ContaCorrente(numero, agencia, titular));
+                break;
             case CONTA_INVESTIMENTO:
                 ContaPoupanca.contas.add(new ContaPoupanca(numero, agencia, titular));
+                break;
             default:
                 System.out.println(OPCAO_INVALIDA);
+                break;
         }
     }
 

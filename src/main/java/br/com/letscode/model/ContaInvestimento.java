@@ -14,10 +14,10 @@ public class ContaInvestimento extends Conta{
     public void investir(double valor){
         BigDecimal aux = BigDecimal.valueOf(valor);
         if (titular.getClass() == PessoaFisica.class) {
-            saldo.add(aux.multiply(BigDecimal.valueOf(PF_TAXA_RENDIMENTO)));
+            saldo = saldo.add(aux.multiply(BigDecimal.valueOf(PF_TAXA_RENDIMENTO)));
         }
         if (titular.getClass() == PessoaJuridica.class){
-            saldo.add(aux.multiply(BigDecimal.valueOf(PJ_TAXA_RENDIMENTO)));
+            saldo = saldo.add(aux.multiply(BigDecimal.valueOf(PJ_TAXA_RENDIMENTO)));
         }
     }
 

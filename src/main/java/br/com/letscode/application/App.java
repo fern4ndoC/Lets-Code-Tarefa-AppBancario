@@ -1,43 +1,126 @@
 package main.java.br.com.letscode.application;
 
-import main.java.br.com.letscode.model.*;
+import main.java.br.com.letscode.model.Conta;
+import main.java.br.com.letscode.model.ContaCorrente;
+import main.java.br.com.letscode.model.PessoaFisica;
 
-import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Scanner;
 
 public class App {
+
+    private static final String INVALIDO = "Opção inválida!";
+    private static final String OPCAO = "\nInforme a opção: ";
+    private static final String VALOR = "\nInforme o valor: ";
+    private static final String SALDO_ATUAL = "\nSaldo atual: ";
+
+    private static int opcao = 1;
+    private static double valor = 0.0d;
+    private static Locale ptbr = new Locale("pt", "BR");
+    private static Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
 
-        Locale ptbr = new Locale("pt", "BR");
-/*
-        ArrayList<Conta> contas = new ArrayList<>();
+        PessoaFisica.clientesPf.add(new PessoaFisica("Fulano", "123456789"));
+        ContaCorrente.contas.add(new ContaCorrente(22, 22, PessoaFisica.clientesPf.get(0)));
 
-        Cliente teste = new PessoaFisica("Fulano", "123456789");
-        Cliente pj = new PessoaJuridica("Empresa X", "23654896");
+        while (opcao > 0) {
+            inicio();
+        }
 
-        Conta cc = Conta.abrirConta(1, pj, 22, 22);
-        Conta cc2 = Conta.abrirConta(1, teste, 32, 32);
+        sc.close();
+    }
 
-        contas.add(cc2);
-        contas.add(cc);
+    public static void inicio(){
+        System.out.printf("%n1 - Acessar conta.%n2 - Criar conta.%n3 - Cadastrar cliente.%n0 - Sair.%n");
+        System.out.print(OPCAO);
+        opcao = sc.nextInt();
+        switch (opcao){
+            case 1:
+                menuConta();
+                break;
+            case 2:
+                menuCriarConta();
+                break;
+            case 3:
+                menuCadastrarCliente();
+                break;
+            case 0:
+                opcao = 0;
+                break;
+            default:
+                System.out.println(INVALIDO);
+                inicio();
+                break;
+        }
+    }
 
-        int srcIndex = contas.indexOf(cc);
-        Conta dest = new ContaCorrente();
-        dest.setNumero(32);
-        dest.setAgencia(32);
-        int destIndex = contas.indexOf(dest);
+    private static void menuConta() {
+        System.out.printf("%n1 - Conta Corrente.%n2 - Conta Poupança.%n3 - Conta Investimento.%n0 - Sair.%n");
+        System.out.print(OPCAO);
+        opcao = sc.nextInt();
 
-        contas.get(srcIndex).consultarSaldo(ptbr);
-        contas.get(srcIndex).depositar(100);
+        System.out.print("\nInforme a agência: ");
+        int agencia = sc.nextInt();
+        System.out.print("Informe o número da conta: ");
+        int numero = sc.nextInt();
+        switch (opcao){
+            case 1:
+                menuContaCorrente(agencia, numero);
+                break;
+            case 2:
+                menuContaPoupanca(agencia, numero);
+                break;
+            case 3:
+                menuContaInvestimento(agencia, numero);
+                break;
+            default:
+                inicio();
+                break;
+        }
+    }
 
+    private static void menuCadastrarCliente() {
+        opcao = 0;
+    }
 
-        System.out.print("conta 1:");
-        contas.get(srcIndex).consultarSaldo(ptbr);
-        System.out.print("conta 2:");
-        contas.get(destIndex).consultarSaldo(ptbr);
-*/
-        PessoaFisica pf = new PessoaFisica("fulano","12548");
-        pf.abrirConta(TipoConta.CONTA_CORRENTE, 22, 22);
-        System.out.println(pf.toString());
+    private static void menuCriarConta() {
+        opcao = 0;
+    }
+
+    private static void menuContaCorrente(int agencia, int numero) {
+        ContaCorrente cc = new ContaCorrente(agencia,numero);
+        int cIndex = ContaCorrente.contas.indexOf(cc);
+        cc = ContaCorrente.contas.get(cIndex);
+        while (opcao != 0) {
+            System.out.printf("%n1 - Sacar.%n2 - Depositar.%n3 - Transferir.%n4 - Consultar saldo.%n0 - Sair.%n");
+            System.out.print(OPCAO);
+            opcao = sc.nextInt();
+            switch (opcao) {
+                case 1:
+                    System.out.print(VALOR);
+                    valor = sc.nextDouble();
+                    cc.sacar(valor);
+                    break;
+                case 2:
+                    System.out.print(VALOR);
+                    valor = sc.nextDouble();
+                    cc.depositar(valor);
+                    break;
+                case 4:
+                    System.out.print(SALDO_ATUAL);
+                    cc.consultarSaldo(ptbr);
+                    break;
+                default:
+                    inicio();
+                    break;
+            }
+        }
+    }
+
+    private static void menuContaInvestimento(int agencia, int numero) {
+    }
+
+    private static void menuContaPoupanca(int agencia, int numero) {
     }
 }

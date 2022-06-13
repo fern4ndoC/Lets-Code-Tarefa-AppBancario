@@ -10,6 +10,10 @@ public class ContaCorrente extends Conta{
         super();
     }
 
+    public ContaCorrente(int numero, int agencia){
+        super(numero, agencia);
+    }
+
     public ContaCorrente(int numero, int agencia, Cliente titular) {
         super(numero, agencia, titular);
     }

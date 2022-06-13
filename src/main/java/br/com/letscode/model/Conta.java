@@ -7,6 +7,7 @@ import java.util.Locale;
 abstract public class Conta{
 
     protected static final String SALDO_INSUFICIENTE = "Não há saldo suficiente para realizar a operação.";
+    private static final String SUCESSO = "Operação realizada com sucesso!";
     protected static final double PJ_TAXA_SAQUE = 0.005;
     protected static final double PJ_TAXA_TRANSFERENCIA = 0.005;
     protected static final double PF_TAXA_RENDIMENTO = 0.005;
@@ -20,6 +21,11 @@ abstract public class Conta{
     public Conta() {
     }
 
+    public Conta(int numero, int agencia) {
+        this.numero = numero;
+        this.agencia = agencia;
+    }
+
     public Conta(int numero, int agencia, Cliente titular) {
         this.numero = numero;
         this.agencia = agencia;
@@ -31,10 +37,11 @@ abstract public class Conta{
         BigDecimal aux = BigDecimal.valueOf(valor);
         if (saldo.compareTo(aux) >= 0) {
             if (titular.getClass() == PessoaJuridica.class) {
-                saldo.add(aux.multiply(BigDecimal.valueOf(1 + PJ_TAXA_SAQUE)));
+                saldo = saldo.add(aux.multiply(BigDecimal.valueOf(1 + PJ_TAXA_SAQUE)));
             }else {
-                saldo.subtract(aux);
+                saldo = saldo.subtract(aux);
             }
+            System.out.println(SUCESSO);
         }else {
             System.out.println(SALDO_INSUFICIENTE);
         }
@@ -44,9 +51,9 @@ abstract public class Conta{
         BigDecimal aux = BigDecimal.valueOf(valor);
         if (saldo.compareTo(aux) >= 0) {
             if (titular.getClass() == PessoaJuridica.class) {
-                saldo.add(aux.multiply(BigDecimal.valueOf(1 + PJ_TAXA_TRANSFERENCIA)));
+                saldo = saldo.add(aux.multiply(BigDecimal.valueOf(1 + PJ_TAXA_TRANSFERENCIA)));
             }else {
-                saldo.subtract(aux);
+                saldo =  saldo.subtract(aux);
             }
             destino.depositar(valor);
         }else {
@@ -55,7 +62,7 @@ abstract public class Conta{
     }
 
     public void depositar(double valor){
-        saldo.add(BigDecimal.valueOf(valor));
+        saldo = saldo.add(BigDecimal.valueOf(valor));
     }
 
     public void consultarSaldo(Locale locale){

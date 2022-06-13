@@ -20,12 +20,16 @@ public class PessoaFisica extends Cliente implements ClienteOperacoes{
         switch (tipo){
             case CONTA_CORRENTE:
                 ContaCorrente.contas.add(new ContaCorrente(numero, agencia, titular));
+                break;
             case CONTA_INVESTIMENTO:
                 ContaPoupanca.contas.add(new ContaPoupanca(numero, agencia, titular));
+                break;
             case CONTA_POUPANCA:
                 ContaInvestimento.contas.add(new ContaInvestimento(numero, agencia, titular));
+                break;
             default:
                 System.out.println(OPCAO_INVALIDA);
+                break;
         }
     }
 
